@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard11') }}
+            {{ __('DISPLAY TABLE') }}
         </h2>
     </x-slot>
 
@@ -12,6 +12,8 @@
                     {{ __("You're logged in!") }}
                 </div>
             </div>
+            <div class = >
+            </div> 
         </div>
     </div>
 </x-app-layout>
