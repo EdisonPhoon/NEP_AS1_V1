@@ -1,72 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple Tailwind Page</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Management Dashboard</title>
+    <!-- Bootstrap CSS for nice styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-gray-100 font-sans">
+<body>
+    <div class="container-fluid">
+        <!-- Dashboard Header -->
+        <div class="row bg-dark text-white p-3">
+            <div class="col">
+                <h1><i class="fas fa-gamepad me-2"></i>Game Dashboard</h1>
+            </div>
+            <div class="col text-end">
+                <span class="me-3">Admin Edison</span>
+                <span class="badge bg-success">You're logged in!</span>
+            </div>
+        </div>
 
-  <!-- Header -->
-  <header class="bg-blue-600 text-white p-4 shadow">
-    <h1 class="text-2xl font-bold">My Simple Page</h1>
-  </header>
+        <!-- Main Content -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <!-- Action Buttons -->
+                <div class="d-flex justify-content-between mb-4">
+                    <h2><i class="fas fa-table me-2"></i>Games Table</h2>
+                    <a href="{{ route('games.create') }}" class="btn btn-primary">
+                        <i class="fas fa-plus me-1"></i>Add New Game
+                    </a>
+                </div>
 
-  <!-- Main Content -->
-  <main class="p-6">
-    <!-- Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-      <div class="bg-white p-6 rounded-lg shadow hover:shadow-md">
-        <h2 class="text-gray-500">Card One</h2>
-        <p class="text-xl font-bold text-gray-800">Content 1</p>
-      </div>
-      <div class="bg-white p-6 rounded-lg shadow hover:shadow-md">
-        <h2 class="text-gray-500">Card Two</h2>
-        <p class="text-xl font-bold text-gray-800">Content 2</p>
-      </div>
-      <div class="bg-white p-6 rounded-lg shadow hover:shadow-md">
-        <h2 class="text-gray-500">Card Three</h2>
-        <p class="text-xl font-bold text-gray-800">Content 3</p>
-      </div>
+                <!-- Games Table -->
+                <div class="card">
+                    <div class="card-body">
+                        @if(session('success'))
+                            <div class="alert alert-success alert-dismissible fade show">
+                                {{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        @endif
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Game Title</th>
+                                        <th>Price</th>
+                                        <th>Status</th>
+                                        <th>Created At</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($games as $game)
+                                        <tr>
+                                            <td>{{ $game->id }}</td>
+                                            <td>{{ $game->title }}</td>
+                                            <td>${{ number_format($game->price, 2) }}</td>
+                                            <td>
+                                                <span class="badge {{ $game->is_active ? 'bg-success' : 'bg-secondary' }}">
+                                                    {{ $game->is_active ? 'Active' : 'Inactive' }}
+                                                </span>
+                                            </td>
+                                            <td>{{ $game->created_at->format('M d, Y') }}</td>
+                                            <td>
+                                                <!-- VIEW Button -->
+                                                <a href="{{ route('games.show', $game) }}" class="btn btn-info btn-sm" title="View">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+
+                                                <!-- EDIT Button -->
+                                                <a href="{{ route('games.edit', $game) }}" class="btn btn-warning btn-sm" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+
+                                                <!-- DELETE Button -->
+                                                <form action="{{ route('games.destroy', $game) }}" method="POST" class="d-inline" onsubmit="return confirm('Delete this game?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm" title="Delete">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="6" class="text-center text-muted py-4">
+                                                <i class="fas fa-gamepad fa-2x mb-2"></i>
+                                                <p>No games found. <a href="{{ route('games.create') }}">Create the first game!</a></p>
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Table -->
-    <div class="bg-white rounded-lg shadow p-6">
-      <h2 class="text-lg font-semibold text-gray-800 mb-4">Simple Table</h2>
-      <table class="w-full table-auto border-collapse">
-        <thead>
-          <tr class="bg-gray-200">
-            <th class="px-4 py-2 border">ID</th>
-            <th class="px-4 py-2 border">Name</th>
-            <th class="px-4 py-2 border">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="hover:bg-gray-50">
-            <td class="px-4 py-2 border">1</td>
-            <td class="px-4 py-2 border">Alice</td>
-            <td class="px-4 py-2 border">Active</td>
-          </tr>
-          <tr class="hover:bg-gray-50">
-            <td class="px-4 py-2 border">2</td>
-            <td class="px-4 py-2 border">Bob</td>
-            <td class="px-4 py-2 border">Inactive</td>
-          </tr>
-          <tr class="hover:bg-gray-50">
-            <td class="px-4 py-2 border">3</td>
-            <td class="px-4 py-2 border">Charlie</td>
-            <td class="px-4 py-2 border">Active</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </main>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript for interactivity -->
+    <script>
+        // Auto-hide alerts after 5 seconds
+        setTimeout(() => {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                new bootstrap.Alert(alert).close();
+            });
+        }, 5000);
 
-  <!-- Footer -->
-  <footer class="bg-gray-800 text-white text-center p-4 mt-6">
-    © 2025 My Tailwind Page
-  </footer>
-
+        // Enhanced delete confirmation
+        document.querySelectorAll('form[onsubmit]').forEach(form => {
+            form.onsubmit = function(e) {
+                const gameTitle = this.closest('tr').querySelector('td:nth-child(2)').textContent;
+                return confirm(`Are you sure you want to delete "${gameTitle.trim()}"?`);
+            };
+        });
+    </script>
 </body>
 </html>
