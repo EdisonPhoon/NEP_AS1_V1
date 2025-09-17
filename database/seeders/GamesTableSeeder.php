@@ -17,7 +17,9 @@ class GamesTableSeeder extends Seeder
             [
             'name' => 'Minecraft', 
             'genre' => 'Sandbox', 
-            'rating' => 7, 
+            'rating' => 7,
+            'created_at' => now(), 
+            'updated_at' => now()
             ]
         ]);
     }

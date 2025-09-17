@@ -16,23 +16,19 @@
                             <strong>ID:</strong> {{ $game->id }}
                         </div>
                         <div class="mb-3">
-                            <strong>Title:</strong> {{ $game->title }}
+                            <strong>Name:</strong> {{ $game->name }}
                         </div>
                         <div class="mb-3">
-                            <strong>Price:</strong> ${{ number_format($game->price, 2) }}
+                            <strong>Genre:</strong> {{ $game->genre }}
                         </div>
                         <div class="mb-3">
-                            <strong>Description:</strong> 
-                            <p>{{ $game->description ?? 'No description available' }}</p>
-                        </div>
-                        <div class="mb-3">
-                            <strong>Status:</strong>
-                            <span class="badge {{ $game->is_active ? 'bg-success' : 'bg-secondary' }}">
-                                {{ $game->is_active ? 'Active' : 'Inactive' }}
-                            </span>
+                            <strong>Rating:</strong> {{ $game->rating }}
                         </div>
                         <div class="mb-3">
                             <strong>Created:</strong> {{ $game->created_at->format('M d, Y') }}
+                        </div>
+                        <div class="mb-3">
+                            <strong>Last Updated:</strong> {{ $game->updated_at->format('M d, Y') }}
                         </div>
                     @else
                         <div class="alert alert-warning">

@@ -50,9 +50,10 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Game Title</th>
-                                        <th>Price</th>
-                                        <th>Status</th>
+                                        <th>Genre</th>
+                                        <th>Rating</th>
                                         <th>Created At</th>
+                                        <th>Updated At</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -60,14 +61,11 @@
                                     @forelse($games as $game)
                                         <tr>
                                             <td>{{ $game->id }}</td>
-                                            <td>{{ $game->title }}</td>
-                                            <td>${{ number_format($game->price, 2) }}</td>
-                                            <td>
-                                                <span class="badge {{ $game->is_active ? 'bg-success' : 'bg-secondary' }}">
-                                                    {{ $game->is_active ? 'Active' : 'Inactive' }}
-                                                </span>
-                                            </td>
+                                            <td>{{ $game->name }}</td>
+                                            <td>{{ $game->genre }}</td>
+                                            <td>{{ $game->rating }}</td>
                                             <td>{{ $game->created_at->format('M d, Y') }}</td>
+                                            <td>{{ $game->updated_at->format('M d, Y') }}</td>
                                             <td>
                                                 <!-- VIEW Button -->
                                                 <a href="{{ route('games.show', $game) }}" class="btn btn-info btn-sm" title="View">
@@ -91,7 +89,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="6" class="text-center text-muted py-4">
+                                            <td colspan="12" class="text-center text-muted py-4">
                                                 <i class="fas fa-gamepad fa-2x mb-2"></i>
                                                 <p>No games found. <a href="{{ route('games.create') }}">Create the first game!</a></p>
                                             </td>

@@ -12,8 +12,8 @@ class GameController extends Controller
      */
     public function index()
     {
-        $games = Game::all();
-        return view('game.index', compact('games')); // Fixed: should be 'games', not 'game'
+        $games = \App\Models\Game::orderBy('id')->get(); // or orderByDesc('id')
+        return view('game.index', compact('games'));
     }
 
     /**
@@ -30,10 +30,9 @@ class GameController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|max:255',
-            'price' => 'required|numeric|min:0',
+            'name' => 'required|max:100',
+            'genre' => 'required|max:100',
             'rating' => 'required|numeric|min:0|max:10',
-            'is_active' => 'boolean'
         ]);
 
         Game::create($validated);
@@ -64,10 +63,9 @@ class GameController extends Controller
     public function update(Request $request, Game $game)
     {
         $validated = $request->validate([
-            'title' => 'required|max:255',
-            'price' => 'required|numeric|min:0',
+            'name' => 'required|max:100',
+            'genre' => 'required|max:100',
             'rating' => 'required|numeric|min:0|max:10',
-            'is_active' => 'boolean'
         ]);
 
         $game->update($validated);

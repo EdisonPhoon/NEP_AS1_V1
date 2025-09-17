@@ -15,19 +15,19 @@
                             @csrf
 
                             <div class="mb-3">
-                                <label for="title" class="form-label">Game Title *</label>
-                                <input type="text" class="form-control @error('title') is-invalid @enderror" 
-                                    id="title" name="title" value="{{ old('title') }}" required>
-                                @error('title')
+                                <label for="name" class="form-label">Game Name *</label>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" 
+                                    id="name" name="name" value="{{ old('name') }}" required>
+                                @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="mb-3">
-                                <label for="price" class="form-label">Price *</label>
-                                <input type="number" step="0.01" class="form-control @error('price') is-invalid @enderror" 
-                                    id="price" name="price" value="{{ old('price') }}" required>
-                                @error('price')
+                                <label for="genre" class="form-label">Genre *</label>
+                                <input type="text" class="form-control @error('genre') is-invalid @enderror" 
+                                    id="genre" name="genre" value="{{ old('genre') }}" required>
+                                @error('genre')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -39,11 +39,6 @@
                                 @error('rating')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                            </div>
-
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="1" {{ old('is_active', true) ? 'checked' : '' }}>
-                                <label class="form-check-label" for="is_active">Active Game</label>
                             </div>
 
                             <div class="d-flex gap-2">
