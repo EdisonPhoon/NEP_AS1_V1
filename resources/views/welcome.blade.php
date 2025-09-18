@@ -33,21 +33,6 @@
                         @csrf
                         <button type="submit" class="btn btn-danger btn-sm">Logout</button>
                     </form>
-                @else
-                    <a
-                        href="{{ route('login') }}"
-                        class="btn btn-primary"
-                    >
-                        Log in (Here)
-                    </a>
-                    @if (Route::has('register'))
-                        <a
-                            href="{{ route('register') }}"
-                            class="btn btn-secondary"
-                        >
-                            Register (IF NOT YET)
-                        </a>
-                    @endif
                 @endauth
             </nav>
         @endif
@@ -57,7 +42,7 @@
             <div class="text-[13px] leading-[20px] flex-1 p-6 pb-12 lg:p-20 bg-white dark:bg-[#161615] dark:text-[#EDEDEC] shadow rounded-bl-lg rounded-br-lg lg:rounded-tl-lg lg:rounded-br-none">
                 <h1 class="mb-1 font-medium">Welcome to Game Management</h1>
                 <p class="mb-2 text-[#706f6c] dark:text-[#A1A09A]">
-                    Please log in or register to access the dashboard and manage games.
+                    Please note that you don't need to log in or register to access the actual dashboard.
                 </p>
                 <ul class="flex flex-col mb-4 lg:mb-6"></ul>
                 <ul class="flex gap-3 text-sm leading-normal">
