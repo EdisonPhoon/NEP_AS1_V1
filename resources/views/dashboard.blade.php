@@ -1,19 +1,9 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('DISPLAY TABLE') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
-            <div class = >
-            </div> 
-        </div>
-    </div>
-</x-app-layout>
+@section('content')
+<div class="container">
+    <h1>Welcome to your Dashboard!</h1>
+    <p>You are logged in.</p>
+    <a href="{{ route('games.index') }}" class="btn btn-primary">Go to Games</a>
+</div>
+@endsection
